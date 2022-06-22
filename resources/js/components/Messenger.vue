@@ -9,7 +9,7 @@
                         </h3>
                     </div>
                     <div class="card-body">
-                        <div class="card" @click="activeDiDs = index" :class="{'card-info card-outline': index == activeDiDs}" v-for="(did, index) in dids" :key="index">
+                        <div class="card" @click="activeDiDs = index; getMessages();" :class="{'card-info card-outline': index == activeDiDs}" v-for="(did, index) in dids" :key="index">
                             <div class="card-header">
                                 <h5 class="card-title">{{ did.id }}</h5>
                                 <div class="card-tools">
@@ -35,6 +35,12 @@
                                 <div class="messages h-100 p-3" ref="messanger">
                                     <div class="message" v-for="(message, index) in messages" :key="index">
                                         {{ message.message }}
+
+                                        <div class="attached" v-if="message.attached && message.attached.length">
+                                            <a class="item" target="_blank" :href="`/storage/attached/${getNameAttach(attach)}`"  v-for="(attach, index) in message.attached" :key="index">
+                                                <i class="fas fa-paperclip"></i>&nbsp;<span>{{ getNameAttach(attach) }}</span>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -76,6 +82,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
     export default {
         mounted() {
             console.log('Component mounted.') 
@@ -120,7 +128,21 @@
             }
         },
 
+        mounted() {
+            this.getMessages();
+        },
+
         methods: {
+            getMessages() {
+                axios.get(`/api/message?did=${this.dids[this.activeDiDs].id}`).then(({ data: { data } }) => {
+                    this.messages = data;
+
+                    setTimeout(() => {
+                        const messanger = this.$refs.messanger
+                        messanger.scrollTop = messanger.scrollHeight + 100;
+                    }, 0)
+                });
+            },
             onRemoveAttach(removeIndex) {
                 this.attached = this.attached.filter((row, index) => {
                     if (index != removeIndex) {
@@ -129,25 +151,28 @@
                 })
             },
             onRemoveDiDs(did) {
-                console.log(did)
+                if (confirm('Are you sure?')) {
+                    console.log('delete', did)
+                }
             },
             onSubmit() {
                 if (this.message) {
-                    this.messages = [
-                        ...this.messages,
-                        {
-                            date: new Date(),
-                            message: this.message,
-                        }
-                    ]
+                    const fd = new FormData;
+                    fd.append('message', this.message);
+                    fd.append('did', this.dids[this.activeDiDs].id);
+                    this.attached.forEach(attach => {
+                        fd.append('attached[]', attach.file);
+                    });
 
-                    this.message = ''
-                    
-                    setTimeout(() => {
-                        const messanger = this.$refs.messanger
-                        messanger.scrollTop = messanger.scrollHeight + 100;
-                    }, 0)
+                    axios.post(`/api/message`, fd).then((data) => {
+                        this.getMessages();
+                        this.message = '';
+                        this.attached = [];
+                    });
                 }
+            },
+            getNameAttach(attach) {
+                return attach.replace('public/attached/', '')
             },
             onAttach(event) {
                 const target = event.target
@@ -161,6 +186,7 @@
                             name: file.name,
                             size: file.size,
                             base64: fr.result,
+                            file: file,
                         }
                     ]
                 }
@@ -211,6 +237,14 @@
                 padding: 10px 15px;
                 display: inline-block;
                 box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+                position: relative;
+
+                .attached {
+                    position: absolute;
+                    bottom: -18px;
+                    left: 0;
+                    font-size: 12px;
+                }
             }
         }
 

@@ -5266,25 +5266,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+var _mounted$data$mounted;
 
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 //
 //
@@ -5363,7 +5369,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_mounted$data$mounted = {
   mounted: function mounted() {
     console.log('Component mounted.');
   },
@@ -5394,62 +5407,84 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }],
       attached: []
     };
-  },
-  methods: {
-    onRemoveAttach: function onRemoveAttach(removeIndex) {
-      this.attached = this.attached.filter(function (row, index) {
-        if (index != removeIndex) {
-          return row;
-        }
-      });
-    },
-    onRemoveDiDs: function onRemoveDiDs(did) {
-      console.log(did);
-    },
-    onSubmit: function onSubmit() {
-      var _this = this;
-
-      if (this.message) {
-        this.messages = [].concat(_toConsumableArray(this.messages), [{
-          date: new Date(),
-          message: this.message
-        }]);
-        this.message = '';
-        setTimeout(function () {
-          var messanger = _this.$refs.messanger;
-          messanger.scrollTop = messanger.scrollHeight + 100;
-        }, 0);
-      }
-    },
-    onAttach: function onAttach(event) {
-      var _this2 = this;
-
-      var target = event.target;
-
-      var _target$files = _slicedToArray(target.files, 1),
-          file = _target$files[0];
-
-      var fr = new FileReader();
-
-      fr.onloadend = function () {
-        _this2.attached = [].concat(_toConsumableArray(_this2.attached), [{
-          name: file.name,
-          size: file.size,
-          base64: fr.result
-        }]);
-      };
-
-      fr.readAsDataURL(file);
-    },
-    onClickAttach: function onClickAttach() {
-      var input = document.createElement('input');
-      input.type = 'file';
-      input.accept = "image/*";
-      input.onchange = this.onAttach;
-      input.click();
-    }
   }
-});
+}, _defineProperty(_mounted$data$mounted, "mounted", function mounted() {
+  this.getMessages();
+}), _defineProperty(_mounted$data$mounted, "methods", {
+  getMessages: function getMessages() {
+    var _this = this;
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/message?did=".concat(this.dids[this.activeDiDs].id)).then(function (_ref) {
+      var data = _ref.data.data;
+      _this.messages = data;
+      setTimeout(function () {
+        var messanger = _this.$refs.messanger;
+        messanger.scrollTop = messanger.scrollHeight + 100;
+      }, 0);
+    });
+  },
+  onRemoveAttach: function onRemoveAttach(removeIndex) {
+    this.attached = this.attached.filter(function (row, index) {
+      if (index != removeIndex) {
+        return row;
+      }
+    });
+  },
+  onRemoveDiDs: function onRemoveDiDs(did) {
+    if (confirm('Are you sure?')) {
+      console.log('delete', did);
+    }
+  },
+  onSubmit: function onSubmit() {
+    var _this2 = this;
+
+    if (this.message) {
+      var fd = new FormData();
+      fd.append('message', this.message);
+      fd.append('did', this.dids[this.activeDiDs].id);
+      this.attached.forEach(function (attach) {
+        fd.append('attached[]', attach.file);
+      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/message", fd).then(function (data) {
+        _this2.getMessages();
+
+        _this2.message = '';
+        _this2.attached = [];
+      });
+    }
+  },
+  getNameAttach: function getNameAttach(attach) {
+    return attach.replace('public/attached/', '');
+  },
+  onAttach: function onAttach(event) {
+    var _this3 = this;
+
+    var target = event.target;
+
+    var _target$files = _slicedToArray(target.files, 1),
+        file = _target$files[0];
+
+    var fr = new FileReader();
+
+    fr.onloadend = function () {
+      _this3.attached = [].concat(_toConsumableArray(_this3.attached), [{
+        name: file.name,
+        size: file.size,
+        base64: fr.result,
+        file: file
+      }]);
+    };
+
+    fr.readAsDataURL(file);
+  },
+  onClickAttach: function onClickAttach() {
+    var input = document.createElement('input');
+    input.type = 'file';
+    input.accept = "image/*";
+    input.onchange = this.onAttach;
+    input.click();
+  }
+}), _mounted$data$mounted);
 
 /***/ }),
 
@@ -10570,7 +10605,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".messenger .attach {\n  position: absolute;\n  right: 25px;\n  top: 50%;\n  transform: translateY(-50%);\n  z-index: 2;\n  cursor: pointer;\n}\n.messenger .messages {\n  display: flex;\n  flex-direction: column;\n  background-image: url(\"/bk.png  \");\n  background-size: 20%;\n  align-items: flex-start;\n  background-color: #F8F9FC;\n  overflow: auto;\n  max-height: 290px;\n  min-height: 290px;\n}\n.messenger .messages .message {\n  margin-bottom: 20px;\n  background: #fff;\n  border-radius: 4px;\n  padding: 10px 15px;\n  display: inline-block;\n  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;\n}\n.messenger .attached {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  margin-top: 15px;\n}\n.messenger .attached .item {\n  display: flex;\n  align-items: center;\n}\n.messenger .attached .item span {\n  text-overflow: ellipsis;\n  overflow: hidden;\n  width: 260px;\n  height: 1.2em;\n  white-space: nowrap;\n}\n.messenger .attached .item i.fas {\n  margin-left: 5px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".messenger .attach {\n  position: absolute;\n  right: 25px;\n  top: 50%;\n  transform: translateY(-50%);\n  z-index: 2;\n  cursor: pointer;\n}\n.messenger .messages {\n  display: flex;\n  flex-direction: column;\n  background-image: url(\"/bk.png  \");\n  background-size: 20%;\n  align-items: flex-start;\n  background-color: #F8F9FC;\n  overflow: auto;\n  max-height: 290px;\n  min-height: 290px;\n}\n.messenger .messages .message {\n  margin-bottom: 20px;\n  background: #fff;\n  border-radius: 4px;\n  padding: 10px 15px;\n  display: inline-block;\n  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;\n  position: relative;\n}\n.messenger .messages .message .attached {\n  position: absolute;\n  bottom: -18px;\n  left: 0;\n  font-size: 12px;\n}\n.messenger .attached {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  margin-top: 15px;\n}\n.messenger .attached .item {\n  display: flex;\n  align-items: center;\n}\n.messenger .attached .item span {\n  text-overflow: ellipsis;\n  overflow: hidden;\n  width: 260px;\n  height: 1.2em;\n  white-space: nowrap;\n}\n.messenger .attached .item i.fas {\n  margin-left: 5px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -28503,6 +28538,7 @@ var render = function () {
                   on: {
                     click: function ($event) {
                       _vm.activeDiDs = index
+                      _vm.getMessages()
                     },
                   },
                 },
@@ -28553,8 +28589,37 @@ var render = function () {
                       _vm._v(
                         "\n                                    " +
                           _vm._s(message.message) +
-                          "\n                                "
+                          "\n\n                                    "
                       ),
+                      message.attached && message.attached.length
+                        ? _c(
+                            "div",
+                            { staticClass: "attached" },
+                            _vm._l(message.attached, function (attach, index) {
+                              return _c(
+                                "a",
+                                {
+                                  key: index,
+                                  staticClass: "item",
+                                  attrs: {
+                                    target: "_blank",
+                                    href:
+                                      "/storage/attached/" +
+                                      _vm.getNameAttach(attach),
+                                  },
+                                },
+                                [
+                                  _c("i", { staticClass: "fas fa-paperclip" }),
+                                  _vm._v(" "),
+                                  _c("span", [
+                                    _vm._v(_vm._s(_vm.getNameAttach(attach))),
+                                  ]),
+                                ]
+                              )
+                            }),
+                            0
+                          )
+                        : _vm._e(),
                     ])
                   }),
                   0
