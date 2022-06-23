@@ -5384,6 +5384,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     return {
       activeDiDs: 0,
       message: '',
+      from: '4328472999',
       dids: [{
         id: '2816081946'
       }, {
@@ -5441,6 +5442,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     if (this.message) {
       var fd = new FormData();
       fd.append('message', this.message);
+      fd.append('from', this.from);
       fd.append('did', this.dids[this.activeDiDs].id);
       this.attached.forEach(function (attach) {
         fd.append('attached[]', attach.file);
@@ -28576,7 +28578,12 @@ var render = function () {
       _vm._v(" "),
       _c("div", { staticClass: "col-md-8" }, [
         _c("div", { staticClass: "card h-100 card card-row card-secondary" }, [
-          _vm._m(1),
+          _c("div", { staticClass: "card-header" }, [
+            _c("h3", { staticClass: "card-title" }, [
+              _vm._v("\n                        Send from "),
+              _c("small", [_vm._v(_vm._s(_vm.from))]),
+            ]),
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body pt-0 pl-0 pr-0" }, [
             _c("div", { staticClass: "row h-100" }, [
@@ -28753,16 +28760,6 @@ var staticRenderFns = [
     return _c("div", { staticClass: "card-header" }, [
       _c("h3", { staticClass: "card-title" }, [
         _vm._v("\n                        DIDs\n                    "),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("h3", { staticClass: "card-title" }, [
-        _vm._v("\n                        Messanger\n                    "),
       ]),
     ])
   },

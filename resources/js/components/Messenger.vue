@@ -26,7 +26,7 @@
                 <div class="card h-100 card card-row card-secondary">
                     <div class="card-header">
                         <h3 class="card-title">
-                            Messanger
+                            Send from <small>{{ from }}</small>
                         </h3>
                     </div>
                     <div class="card-body pt-0 pl-0 pr-0">
@@ -93,6 +93,7 @@ import axios from 'axios';
             return {
                 activeDiDs: 0,
                 message: '',
+                from: '4328472999',
                 dids: [
                     {
                         id: '2816081946',
@@ -159,6 +160,7 @@ import axios from 'axios';
                 if (this.message) {
                     const fd = new FormData;
                     fd.append('message', this.message);
+                    fd.append('from', this.from);
                     fd.append('did', this.dids[this.activeDiDs].id);
                     this.attached.forEach(attach => {
                         fd.append('attached[]', attach.file);

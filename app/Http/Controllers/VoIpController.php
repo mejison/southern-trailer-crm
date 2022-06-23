@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Message;
-use App\Integrations\VoIp;
+use App\Integrations\VoIPms;
 
 class VoIpController extends Controller
 {
@@ -27,18 +27,25 @@ class VoIpController extends Controller
             });
         }
 
-        $from = '4328472999';
+        $from = $request->input('from');
         $to = $request->input('did');
         $message = $request->input('message');
 
-        // dd($from, $to, $message);
+        $vOiP = new VoIPms("admin@southerntrailerstx.com", "Topline1207!");
+        if ( ! count($attached)) {
+            $vOiP->sendSMS($from, $to, $message);
+        } else {
+            $attached = collect($attached)->map(function($attach) {
+                return url(str_replace('public/', '/storage/', $attach));
+            });
 
-        $vOiP = new VoIp("admin@southerntrailerstx.com", "Topline1207!");
-        // $resopnse = $vOiP->sendSMS($from, $to, $message);
-        $response = $vOiP->getDIDsInfo();
+            $attached1 = isset($attached[0]) ? $attached[0] : '';
+            $attached2 = isset($attached[1]) ? $attached[1] : '';
+            $attached3 = isset($attached[2]) ? $attached[2] : '';
+
+            $vOiP->sendMMS($from, $to, $message, $attached1, $attached2, $attached3);
+        }
         
-        dd($response);
-
         Message::create([
             'did' => $request->input('did'),
             'message' => $request->input('message'),
