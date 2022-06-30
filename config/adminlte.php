@@ -251,6 +251,11 @@ return [
             'url'         => '/sms-mms',
             'icon'        => 'far fa-fw fa-file',
         ],
+        [
+            'text'        => 'SMS Alets',
+            'url'         => '/sms-alets',
+            'icon'        => 'fas fa-solid fa-bell',
+        ],
         // [
         //     'text'        => 'pages',
         //     'url'         => 'admin/pages',

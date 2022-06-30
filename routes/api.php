@@ -20,3 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('message', [App\Http\Controllers\VoIpController::class, 'getMessages']);
 Route::post('message', [App\Http\Controllers\VoIpController::class, 'send']);
+
+// sms alert
+Route::get('sms-alert', [App\Http\Controllers\VoIpController::class, 'sendSMSAlert']);

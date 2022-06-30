@@ -20,3 +20,4 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/sms-mms', [App\Http\Controllers\VoIpController::class, 'sms_mms'])->name('sms-mms');
+Route::get('/sms-alets', [App\Http\Controllers\VoIpController::class, 'sms_alert'])->name('sms-alert');

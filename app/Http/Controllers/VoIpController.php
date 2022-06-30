@@ -12,6 +12,10 @@ class VoIpController extends Controller
         return view('sms-and-mms');
     }
 
+    public function sms_alert() {
+        return view('sms-alert');
+    }
+
     public function getMessages(Request $request) {
         $messages = Message::where(['did' => $request->input('did')])->get();
         return response()->json([
@@ -54,6 +58,16 @@ class VoIpController extends Controller
 
         return response()->json([
             'message' => 'Successfuly send'
+        ]);
+    }
+
+    public function sendSMSAlert(Request $request) {
+        $from = $request->from;
+        $to = $request->to;
+        $message = $request->message;
+
+        return response()->json([
+            'data' => alert_sms($from, $to, $message),
         ]);
     }
 }
